@@ -3,6 +3,7 @@ pragma solidity ^0.8.23;
 
 import "@solmate/tokens/ERC20.sol";
 import "@solmate/utils/FixedPointMathLib.sol";
+import "@solmate/utils/SafeTransferLib.sol";
 
 import "./VampireToken.sol";
 
@@ -11,6 +12,7 @@ import "./VampireToken.sol";
 /// @notice
 abstract contract Graveyard {
     using FixedPointMathLib for uint256;
+    using SafeTransferLib for ERC20;
 
     // 1 graveyard contract deployed per target token
     VampireToken internal _vampireToken;
@@ -36,7 +38,7 @@ abstract contract Graveyard {
 
     function convertToVampire(uint256 numBodies, address receiver) external {
         // transfer the $TOKENs here
-        _targetToken.transferFrom(msg.sender, address(this), numBodies);
+        _targetToken.safeTransferFrom(msg.sender, address(this), numBodies);
 
         // compute how many $VAMPs to mint
         uint256 rate = _getExchangeRate();
