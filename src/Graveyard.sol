@@ -7,9 +7,8 @@ import "@solmate/utils/SafeTransferLib.sol";
 
 import "./VampireToken.sol";
 
-/// @title
-/// @author
-/// @notice
+/// @title Template for all the $VAMP Graveyards.
+/// @notice WIP
 abstract contract Graveyard {
     using FixedPointMathLib for uint256;
     using SafeTransferLib for ERC20;
@@ -44,8 +43,7 @@ abstract contract Graveyard {
         uint256 rate = _getExchangeRate();
         uint256 mintAmount = numBodies.mulDivDown(rate, _targetDecimals);
 
-        // mint to receiver
-        _vampireToken.mint(receiver, mintAmount);
+        // TODO: mint to receiver
 
         // TODO: do stuff with the received token
     }
